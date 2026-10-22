@@ -14,7 +14,7 @@
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""
     />
-    <link rel="stylesheet" href="styles.css?v=5" />
+    <link rel="stylesheet" href="styles.css?v=6" />
   </head>
   <body>
     <header class="app-header">
@@ -22,34 +22,11 @@
         <h1 id="trip-title">Trip Map</h1>
         <p class="subtitle" id="trip-subtitle"></p>
       </div>
-      <div class="header-controls">
-        <label class="trip-picker">
-          <span class="sr-only">Trip</span>
-          <select id="trip-select" aria-label="Choose trip"></select>
-        </label>
-        <div class="header-nav">
-          <button type="button" class="btn" id="btn-stops">Stops</button>
-          <button type="button" class="btn accent" id="btn-think">To think about</button>
-        </div>
-        <label class="toggle" id="superseded-toggle" title="Show superseded legs on the map and in stop details">
-          <input type="checkbox" id="show-superseded" />
-          <span>Show superseded</span>
-        </label>
-        <div class="legend" id="legend" aria-hidden="true">
-          <span class="lg-booked"><i class="line-booked"></i> Booked flight</span>
-          <span class="lg-classic"><i class="dot-flight"></i> Active</span>
-          <span><i class="dot-event"></i> Event</span>
-          <span class="lg-classic"><i class="dot-superseded"></i> Superseded</span>
-        </div>
-        <div class="header-actions">
-          <button type="button" class="btn ghost" id="btn-export" title="Download merged itinerary JSON">Export JSON</button>
-          <button type="button" class="btn ghost" id="btn-reset" title="Clear local edits">Reset edits</button>
-        </div>
-      </div>
     </header>
 
     <div class="glider" id="glider">
       <p id="glider-date">Thu 12 Nov, 00:00</p>
+      <button type="button" id="glider-play" aria-label="Play">▶</button>
       <input id="glider-range" type="range" aria-label="Trip date" />
     </div>
 
@@ -89,8 +66,8 @@
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
-    <script src="data/trip.js?v=5"></script>
-    <script src="data/faces.js?v=5"></script>
-    <script src="app.js?v=5"></script>
+    <script src="data/trip.js?v=6"></script>
+    <script src="data/faces.js?v=6"></script>
+    <script src="app.js?v=6"></script>
   </body>
 </html>

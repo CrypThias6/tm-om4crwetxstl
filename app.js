@@ -834,9 +834,20 @@
     return 1;
   }
 
+  function flyingWhos(at) {
+    return ["us", "sam"].filter((who) =>
+      bookedHops(who).some((hop) => {
+        const depart = Date.parse(hop.departAt);
+        const arrive = Date.parse(hop.arriveAt);
+        return at >= depart && at <= arrive;
+      })
+    );
+  }
+
   function setupGlider() {
     const range = document.getElementById("glider-range");
     const dateEl = document.getElementById("glider-date");
+    const playBtn = document.getElementById("glider-play");
     if (!range || !map) return;
     const start = Date.parse("2026-11-12T00:00:00+13:00");
     const end = Date.parse("2026-12-05T18:00:00+13:00");
@@ -858,11 +869,15 @@
       });
       const spot = placeWho(person.who, start);
       if (!spot) return;
-      markers[person.id] = L.marker(spot, { icon, zIndexOffset: 900, keyboard: false }).addTo(map);
+      markers[person.id] = L.marker(spot, {
+        icon,
+        zIndexOffset: 900,
+        keyboard: false,
+      }).addTo(map);
     });
     range.min = String(start);
     range.max = String(end);
-    range.step = String(15 * 60 * 1000);
+    range.step = String(60 * 1000);
     range.value = String(start);
     const fmt = new Intl.DateTimeFormat("en-NZ", {
       timeZone: "Pacific/Auckland",
@@ -873,6 +888,7 @@
       minute: "2-digit",
       hourCycle: "h23",
     });
+    let cam = null;
     const paint = () => {
       const at = Number(range.value);
       if (dateEl) dateEl.textContent = fmt.format(at);
@@ -881,7 +897,73 @@
         if (coord && markers[person.id]) markers[person.id].setLatLng(coord);
       });
     };
-    range.addEventListener("input", paint);
+    const follow = (at) => {
+      const air = flyingWhos(at);
+      const whos = air.length ? air : ["us", "sam"];
+      const pts = whos.map((who) => placeWho(who, at)).filter(Boolean);
+      if (!pts.length) return;
+      let center;
+      let zoom;
+      if (air.length === 1) {
+        center = L.latLng(placeWho(air[0], at));
+        zoom = 5;
+      } else if (pts.length === 1) {
+        center = L.latLng(pts[0]);
+        zoom = 5;
+      } else {
+        const bounds = L.latLngBounds(pts);
+        center = bounds.getCenter();
+        zoom = Math.max(2.6, Math.min(4.4, map.getBoundsZoom(bounds, false, L.point(80, 80))));
+      }
+      if (!cam) {
+        const here = map.getCenter();
+        cam = { lat: here.lat, lng: here.lng, z: map.getZoom() };
+      }
+      const k = air.length ? 0.14 : 0.1;
+      cam.lat += (center.lat - cam.lat) * k;
+      cam.lng += (center.lng - cam.lng) * k;
+      cam.z += (zoom - cam.z) * k;
+      map.setView([cam.lat, cam.lng], cam.z, { animate: false });
+    };
+    let playing = false;
+    let lastTick = 0;
+    const setPlayLabel = () => {
+      if (!playBtn) return;
+      playBtn.textContent = playing ? "❚❚" : "▶";
+      playBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
+    };
+    const frame = (now) => {
+      if (!playing) return;
+      if (!lastTick) lastTick = now;
+      const dt = Math.min(0.05, (now - lastTick) / 1000);
+      lastTick = now;
+      let at = Number(range.value);
+      const air = flyingWhos(at);
+      const hoursPerSecond = air.length ? 1.5 : 96;
+      at += hoursPerSecond * 3600000 * dt;
+      if (at >= end) {
+        at = end;
+        playing = false;
+        setPlayLabel();
+      }
+      range.value = String(Math.round(at));
+      paint();
+      follow(at);
+      if (playing) requestAnimationFrame(frame);
+    };
+    if (playBtn) {
+      playBtn.addEventListener("click", () => {
+        if (!playing && Number(range.value) >= end - 60000) range.value = String(start);
+        playing = !playing;
+        lastTick = 0;
+        setPlayLabel();
+        if (playing) requestAnimationFrame(frame);
+      });
+    }
+    range.addEventListener("input", () => {
+      paint();
+      if (playing) follow(Number(range.value));
+    });
     paint();
   }
 
@@ -948,27 +1030,28 @@
       }
     }
 
-    els.showSuperseded.checked = showSuperseded;
-    els.showSuperseded.addEventListener("change", () => {
-      showSuperseded = els.showSuperseded.checked;
-      localStorage.setItem(SHOW_SUPERSEDED_KEY, showSuperseded ? "1" : "0");
-      drawRoutes();
-      if (activeStopId) openStop(activeStopId);
-    });
+    if (els.showSuperseded) {
+      els.showSuperseded.checked = showSuperseded;
+      els.showSuperseded.addEventListener("change", () => {
+        showSuperseded = els.showSuperseded.checked;
+        localStorage.setItem(SHOW_SUPERSEDED_KEY, showSuperseded ? "1" : "0");
+        drawRoutes();
+        if (activeStopId) openStop(activeStopId);
+      });
+    }
 
     els.close.addEventListener("click", closePanel);
     els.btnSave.addEventListener("click", () => {
       persist();
       if (activeStopId) {
-        // Re-render with merged data so labels stay in sync
         openStop(activeStopId);
         setDirty(false);
         els.saveStatus.textContent = "Saved locally";
         els.saveStatus.className = "save-status saved";
       }
     });
-    els.btnExport.addEventListener("click", exportJson);
-    els.btnReset.addEventListener("click", resetEdits);
+    if (els.btnExport) els.btnExport.addEventListener("click", exportJson);
+    if (els.btnReset) els.btnReset.addEventListener("click", resetEdits);
 
     // Auto-save on blur / before unload if dirty
     window.addEventListener("beforeunload", () => {
