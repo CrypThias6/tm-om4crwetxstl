@@ -337,7 +337,8 @@
           ${statusBadge(seg.status || "active")}
           <span class="card-title">${escapeHtml(seg.title)}</span>
         </div>
-        <div class="card-meta">${escapeHtml(seg.detail || "")}</div>
+        ${seg.detail ? `<div class="card-meta">${escapeHtml(seg.detail)}</div>` : ""}
+        ${seg.link ? `<div class="opt-row"><a class="opt-link" href="${escapeHtml(seg.link)}" target="_blank" rel="noopener noreferrer">Open</a></div>` : ""}
         <div class="field-grid">
           <div class="field">
             <label>Venue</label>
@@ -658,15 +659,17 @@
         const b = stopById[s.toStopId];
         if (!a || !b) return;
         const isOption = s.status === "option";
-        const line = L.polyline(arc([a.lat, a.lng], [b.lat, b.lng], isOption ? 0.32 : 0.12), {
-          color: isOption ? "#ffd166" : "#3d9cf0",
+        const who = s.who || "us";
+        const bend = s.bend != null ? s.bend : isOption ? 0.32 : 0.12;
+        const line = L.polyline(arc([a.lat, a.lng], [b.lat, b.lng], bend), {
+          color: who === "sam" ? "#5b8def" : isOption ? "#ffd166" : "#3d9cf0",
           weight: isOption ? 2.5 : 3.5,
           opacity: isOption ? 0.95 : 0.9,
           dashArray: isOption ? "7 7" : null,
           lineJoin: "round",
         }).addTo(map);
         line.bindTooltip(
-          `${s.airline} ${s.flightNumber} · ${isOption ? "option, not booked" : "booked"}`,
+          `${who === "sam" ? "Sam · " : ""}${s.airline} ${s.flightNumber} · ${isOption ? "not booked" : "booked"}`,
           { sticky: true }
         );
         routeLayers.push(line);
@@ -748,15 +751,27 @@
     drawRoutes();
 
     const seenCoords = {};
-    data.stops.forEach((stop, i) => {
+    let number = 0;
+    data.stops.forEach((stop) => {
+      if (stop.side) {
+        const dot = L.circleMarker([stop.lat, stop.lng], {
+          radius: 5,
+          color: "#5b8def",
+          weight: 2,
+          fillColor: "#0f1419",
+          fillOpacity: 1,
+        }).addTo(map);
+        dot.bindTooltip(stop.city, { permanent: true, direction: "right", offset: [8, 0] });
+        return;
+      }
+      number += 1;
       const k = `${stop.lat},${stop.lng}`;
       const dup = seenCoords[k] || 0;
       seenCoords[k] = dup + 1;
       const icon = L.divIcon({
         className: "",
-        html: `<div class="${markerClassFor(stop)}" title="${escapeHtml(stop.city)} · ${escapeHtml(stop.dates || "")}">${i + 1}</div>`,
+        html: `<div class="${markerClassFor(stop)}" title="${escapeHtml(stop.city)}">${number}</div>`,
         iconSize: [28, 28],
-        // Revisited places (AKL, ZQN) sit side by side instead of stacking.
         iconAnchor: [14 - dup * 30, 14],
       });
 
@@ -768,16 +783,120 @@
       markersByStop[stop.id] = marker;
     });
 
-    const pathIds = data.path || data.stops.map((s) => s.id);
-    const latlngs = pathIds.map((id) => {
-      const s = stopById[id];
-      return [s.lat, s.lng];
-    });
-    map.fitBounds(L.latLngBounds(latlngs).pad(0.12));
+    map.fitBounds(L.latLngBounds(data.stops.map((s) => [s.lat, s.lng])).pad(0.18));
 
     map.on("click", () => {
       closePanel();
     });
+
+    setupGlider();
+  }
+
+  function bookedHops(who) {
+    return data.segments.filter(
+      (s) => s.type === "flight" && s.status === "booked" && s.departAt && (s.who || "us") === who
+    );
+  }
+
+  function placeWho(who, at) {
+    const list = bookedHops(who);
+    if (!list.length) return null;
+    const point = (id) => {
+      const s = stopById[id];
+      return s ? [s.lat, s.lng] : null;
+    };
+    if (at <= Date.parse(list[0].departAt)) return point(list[0].fromStopId);
+    for (const hop of list) {
+      const depart = Date.parse(hop.departAt);
+      const arrive = Date.parse(hop.arriveAt);
+      if (at < depart) return point(hop.fromStopId);
+      if (at <= arrive) {
+        const a = point(hop.fromStopId);
+        const b = point(hop.toStopId);
+        const pts = arc(a, b, hop.bend != null ? hop.bend : 0.12);
+        return pts[Math.round(((at - depart) / (arrive - depart)) * (pts.length - 1))];
+      }
+    }
+    return point(list[list.length - 1].toStopId);
+  }
+
+  function chainProgress(who, at) {
+    const list = bookedHops(who);
+    if (!list.length) return 0;
+    const n = list.length;
+    if (at <= Date.parse(list[0].departAt)) return 0;
+    for (let i = 0; i < n; i++) {
+      const depart = Date.parse(list[i].departAt);
+      const arrive = Date.parse(list[i].arriveAt);
+      if (at < depart) return i / n;
+      if (at <= arrive) return (i + (at - depart) / (arrive - depart)) / n;
+    }
+    return 1;
+  }
+
+  function setupGlider() {
+    const range = document.getElementById("glider-range");
+    const dateEl = document.getElementById("glider-date");
+    const line = document.getElementById("glider-line");
+    if (!range || !map) return;
+    const start = Date.parse("2026-11-12T00:00:00+13:00");
+    const end = Date.parse("2026-12-05T18:00:00+13:00");
+    const faces = window.TRIP_FACES || {};
+    const people = [
+      { id: "matt", who: "us", src: faces.matt, shift: "-18px" },
+      { id: "dad", who: "us", src: faces.dad, shift: "2px" },
+      { id: "sam", who: "sam", src: faces.sam, shift: "-10px" },
+    ];
+    const markers = {};
+    people.forEach((person) => {
+      const icon = L.divIcon({
+        className: "face-pin",
+        html: person.src
+          ? `<img alt="" src="${person.src}" class="${person.who}" />`
+          : `<span class="face-fallback ${person.who}"></span>`,
+        iconSize: [36, 36],
+        iconAnchor: person.id === "dad" ? [0, 18] : person.id === "matt" ? [36, 18] : [18, 18],
+      });
+      const marker = L.marker(placeWho(person.who, start), { icon, zIndexOffset: 900, keyboard: false }).addTo(map);
+      markers[person.id] = marker;
+      if (line && person.src) {
+        const img = document.createElement("img");
+        img.alt = "";
+        img.src = person.src;
+        img.className = "glider-face " + person.who;
+        img.dataset.shift = person.shift;
+        img.dataset.who = person.who;
+        line.appendChild(img);
+      }
+    });
+    range.min = String(start);
+    range.max = String(end);
+    range.step = String(15 * 60 * 1000);
+    range.value = String(Date.parse("2026-11-16T18:00:00+13:00"));
+    const fmt = new Intl.DateTimeFormat("en-NZ", {
+      timeZone: "Pacific/Auckland",
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+    const paint = () => {
+      const at = Number(range.value);
+      if (dateEl) dateEl.textContent = fmt.format(at);
+      people.forEach((person) => {
+        const coord = placeWho(person.who, at);
+        if (coord) markers[person.id].setLatLng(coord);
+      });
+      if (!line) return;
+      line.querySelectorAll(".glider-face").forEach((img) => {
+        const p = chainProgress(img.dataset.who, at);
+        img.style.left = `calc(12px + (100% - 24px) * ${p})`;
+        img.style.transform = `translate(${img.dataset.shift}, -50%)`;
+      });
+    };
+    range.addEventListener("input", paint);
+    paint();
   }
 
   function exportJson() {
@@ -813,8 +932,7 @@
 
   function init() {
     els.title.textContent = data.title;
-    els.subtitle.textContent =
-      data.traveler + " · tap a marker for details";
+    els.subtitle.textContent = data.traveler || "";
     document.title = "Trip Map — " + data.title;
 
     if (els.tripSelect) {

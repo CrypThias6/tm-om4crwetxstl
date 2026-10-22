@@ -27,7 +27,7 @@
           <span class="sr-only">Trip</span>
           <select id="trip-select" aria-label="Choose trip"></select>
         </label>
-        <div class="header-nav">
+        <div class="header-nav" hidden>
           <button type="button" class="btn" id="btn-stops">Stops</button>
           <button type="button" class="btn accent" id="btn-think">To think about</button>
         </div>
@@ -35,7 +35,7 @@
           <input type="checkbox" id="show-superseded" />
           <span>Show superseded</span>
         </label>
-        <div class="legend" id="legend" aria-hidden="true">
+        <div class="legend" id="legend" hidden aria-hidden="true">
           <span class="lg-booked"><i class="line-booked"></i> Booked flight</span>
           <span class="lg-booked"><i class="line-option"></i> Option (not booked)</span>
           <span class="lg-classic"><i class="dot-flight"></i> Active</span>
@@ -48,6 +48,19 @@
         </div>
       </div>
     </header>
+
+    <div class="glider" id="glider">
+      <div class="glider-top">
+        <p id="glider-date">12 Nov</p>
+        <p class="glider-key">
+          <i class="swatch us"></i> Us
+          <i class="swatch sam"></i> Sam
+          <i class="swatch opt"></i> Not booked
+        </p>
+      </div>
+      <div class="glider-line" id="glider-line"></div>
+      <input id="glider-range" type="range" aria-label="Trip date" />
+    </div>
 
     <div class="main">
       <div id="map" role="application" aria-label="Trip route map"></div>
@@ -78,7 +91,7 @@
       </aside>
     </div>
 
-    <p class="map-hint" id="map-hint">Tap a numbered marker for stop details</p>
+    <p class="map-hint hidden" id="map-hint"></p>
 
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -86,6 +99,7 @@
       crossorigin=""
     ></script>
     <script src="data/trip.js"></script>
+    <script src="data/faces.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
