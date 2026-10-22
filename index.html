@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1a222c" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Trip Map</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="header-text">
+        <h1 id="trip-title">Trip Map</h1>
+        <p class="subtitle" id="trip-subtitle"></p>
+      </div>
+      <div class="header-controls">
+        <label class="trip-picker">
+          <span class="sr-only">Trip</span>
+          <select id="trip-select" aria-label="Choose trip"></select>
+        </label>
+        <div class="header-nav">
+          <button type="button" class="btn" id="btn-stops">Stops</button>
+          <button type="button" class="btn accent" id="btn-think">To think about</button>
+        </div>
+        <label class="toggle" id="superseded-toggle" title="Show superseded legs on the map and in stop details">
+          <input type="checkbox" id="show-superseded" />
+          <span>Show superseded</span>
+        </label>
+        <div class="legend" id="legend" aria-hidden="true">
+          <span class="lg-booked"><i class="line-booked"></i> Booked flight</span>
+          <span class="lg-booked"><i class="line-option"></i> Option (not booked)</span>
+          <span class="lg-classic"><i class="dot-flight"></i> Active</span>
+          <span><i class="dot-event"></i> Event</span>
+          <span class="lg-classic"><i class="dot-superseded"></i> Superseded</span>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="btn ghost" id="btn-export" title="Download merged itinerary JSON">Export JSON</button>
+          <button type="button" class="btn ghost" id="btn-reset" title="Clear local edits">Reset edits</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="main">
+      <div id="map" role="application" aria-label="Trip route map"></div>
+
+      <aside
+        id="detail-panel"
+        class="detail-panel"
+        hidden
+        aria-label="Stop details"
+        aria-live="polite"
+      >
+        <div class="detail-header">
+          <div>
+            <p class="detail-kicker" id="detail-country"></p>
+            <h2 id="detail-city"></h2>
+            <p class="detail-dates" id="detail-dates"></p>
+            <p class="detail-stay" id="detail-stay"></p>
+          </div>
+          <button type="button" class="btn close" id="detail-close" aria-label="Close panel">×</button>
+        </div>
+
+        <div class="detail-body" id="detail-body"></div>
+
+        <div class="detail-footer" id="detail-footer">
+          <span class="save-status" id="save-status">Edits stay on this device only</span>
+          <button type="button" class="btn primary" id="btn-save">Save</button>
+        </div>
+      </aside>
+    </div>
+
+    <p class="map-hint" id="map-hint">Tap a numbered marker for stop details</p>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="data/trip.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
