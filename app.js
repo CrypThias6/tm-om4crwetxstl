@@ -837,15 +837,14 @@
   function setupGlider() {
     const range = document.getElementById("glider-range");
     const dateEl = document.getElementById("glider-date");
-    const line = document.getElementById("glider-line");
     if (!range || !map) return;
     const start = Date.parse("2026-11-12T00:00:00+13:00");
     const end = Date.parse("2026-12-05T18:00:00+13:00");
     const faces = window.TRIP_FACES || {};
     const people = [
-      { id: "matt", who: "us", src: faces.matt, shift: "-18px" },
-      { id: "dad", who: "us", src: faces.dad, shift: "2px" },
-      { id: "sam", who: "sam", src: faces.sam, shift: "-10px" },
+      { id: "matt", who: "us", src: faces.matt },
+      { id: "dad", who: "us", src: faces.dad },
+      { id: "sam", who: "sam", src: faces.sam },
     ];
     const markers = {};
     people.forEach((person) => {
@@ -857,42 +856,29 @@
         iconSize: [36, 36],
         iconAnchor: person.id === "dad" ? [0, 18] : person.id === "matt" ? [36, 18] : [18, 18],
       });
-      const marker = L.marker(placeWho(person.who, start), { icon, zIndexOffset: 900, keyboard: false }).addTo(map);
-      markers[person.id] = marker;
-      if (line && person.src) {
-        const img = document.createElement("img");
-        img.alt = "";
-        img.src = person.src;
-        img.className = "glider-face " + person.who;
-        img.dataset.shift = person.shift;
-        img.dataset.who = person.who;
-        line.appendChild(img);
-      }
+      const spot = placeWho(person.who, start);
+      if (!spot) return;
+      markers[person.id] = L.marker(spot, { icon, zIndexOffset: 900, keyboard: false }).addTo(map);
     });
     range.min = String(start);
     range.max = String(end);
     range.step = String(15 * 60 * 1000);
-    range.value = String(Date.parse("2026-11-16T18:00:00+13:00"));
+    range.value = String(start);
     const fmt = new Intl.DateTimeFormat("en-NZ", {
       timeZone: "Pacific/Auckland",
       weekday: "short",
-      day: "numeric",
+      day: "2-digit",
       month: "short",
-      hour: "numeric",
+      hour: "2-digit",
       minute: "2-digit",
+      hourCycle: "h23",
     });
     const paint = () => {
       const at = Number(range.value);
       if (dateEl) dateEl.textContent = fmt.format(at);
       people.forEach((person) => {
         const coord = placeWho(person.who, at);
-        if (coord) markers[person.id].setLatLng(coord);
-      });
-      if (!line) return;
-      line.querySelectorAll(".glider-face").forEach((img) => {
-        const p = chainProgress(img.dataset.who, at);
-        img.style.left = `calc(12px + (100% - 24px) * ${p})`;
-        img.style.transform = `translate(${img.dataset.shift}, -50%)`;
+        if (coord && markers[person.id]) markers[person.id].setLatLng(coord);
       });
     };
     range.addEventListener("input", paint);
@@ -932,7 +918,8 @@
 
   function init() {
     els.title.textContent = data.title;
-    els.subtitle.textContent = data.traveler || "";
+    els.subtitle.textContent =
+      data.traveler + " · tap a marker for details";
     document.title = "Trip Map — " + data.title;
 
     if (els.tripSelect) {

@@ -14,7 +14,7 @@
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=5" />
   </head>
   <body>
     <header class="app-header">
@@ -27,7 +27,7 @@
           <span class="sr-only">Trip</span>
           <select id="trip-select" aria-label="Choose trip"></select>
         </label>
-        <div class="header-nav" hidden>
+        <div class="header-nav">
           <button type="button" class="btn" id="btn-stops">Stops</button>
           <button type="button" class="btn accent" id="btn-think">To think about</button>
         </div>
@@ -35,9 +35,8 @@
           <input type="checkbox" id="show-superseded" />
           <span>Show superseded</span>
         </label>
-        <div class="legend" id="legend" hidden aria-hidden="true">
+        <div class="legend" id="legend" aria-hidden="true">
           <span class="lg-booked"><i class="line-booked"></i> Booked flight</span>
-          <span class="lg-booked"><i class="line-option"></i> Option (not booked)</span>
           <span class="lg-classic"><i class="dot-flight"></i> Active</span>
           <span><i class="dot-event"></i> Event</span>
           <span class="lg-classic"><i class="dot-superseded"></i> Superseded</span>
@@ -50,15 +49,7 @@
     </header>
 
     <div class="glider" id="glider">
-      <div class="glider-top">
-        <p id="glider-date">12 Nov</p>
-        <p class="glider-key">
-          <i class="swatch us"></i> Us
-          <i class="swatch sam"></i> Sam
-          <i class="swatch opt"></i> Not booked
-        </p>
-      </div>
-      <div class="glider-line" id="glider-line"></div>
+      <p id="glider-date">Thu 12 Nov, 00:00</p>
       <input id="glider-range" type="range" aria-label="Trip date" />
     </div>
 
@@ -91,15 +82,15 @@
       </aside>
     </div>
 
-    <p class="map-hint hidden" id="map-hint"></p>
+    <p class="map-hint" id="map-hint">Tap a numbered marker for stop details</p>
 
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
-    <script src="data/trip.js"></script>
-    <script src="data/faces.js"></script>
-    <script src="app.js"></script>
+    <script src="data/trip.js?v=5"></script>
+    <script src="data/faces.js?v=5"></script>
+    <script src="app.js?v=5"></script>
   </body>
 </html>

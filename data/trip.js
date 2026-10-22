@@ -9,7 +9,7 @@ window.SG_TRIP_2026 = {
   "NZD_to_SGD": 0.7259,
   "source": "open.er-api.com, 21 Oct 2026"
  },
- "researchNote": "",
+ "researchNote": "Flights are BOOKED (bags 20kg checked + 5kg cabin each). Only the flights are booked. Hotels, day rooms and the JQ297 change are options (prices checked 2026-10-21, they change daily).",
  "drawSegments": true,
  "stops": [
   {
@@ -23,7 +23,10 @@ window.SG_TRIP_2026 = {
    "dates": "Thu 12 Nov 2026 \u00b7 depart 10:45 (JQ292)",
    "note": "Start (home)",
    "title": "Queenstown \u2192 Auckland (JQ292)",
-   "notesList": [],
+   "notesList": [
+    "Already booked; nothing to buy.",
+    "Walk or take the free inter-terminal bus from domestic to the international terminal/hotel area (~10 min)."
+   ],
    "options": []
   },
   {
@@ -37,7 +40,11 @@ window.SG_TRIP_2026 = {
    "dates": "Thu 12 \u2192 Fri 13 Nov 2026 \u00b7 1 night",
    "note": "Airport night, hotel not booked",
    "title": "Auckland Airport night (12\u219213 Nov)",
-   "notesList": [],
+   "notesList": [
+    "Yes, you need this night: you land 12:35 on 12 Nov and JQ214 leaves 09:40 on 13 Nov from the INTERNATIONAL terminal.",
+    "Top pick: Novotel (walk to check-in). Budget pick: Sudima or Holiday Inn with a shuttle.",
+    "Prices are the cheapest room shown. Ask for twin beds/2 doubles when booking."
+   ],
    "options": [
     {
      "name": "Novotel Auckland Airport",
@@ -112,7 +119,11 @@ window.SG_TRIP_2026 = {
    "dates": "Fri 13 Nov 2026 \u00b7 transit 11:50 \u2192 13:10",
    "note": "Airside transit (80 min)",
    "title": "Auckland \u2192 Melbourne \u2192 Singapore (JQ214 + JQ7)",
-   "notesList": [],
+   "notesList": [
+    "Australia Transit Without Visa: NZ and Germany are both on the TWOV list (arrive by air, leave within 8 h, stay airside). No visa needed if you stay in the transit area.",
+    "If you are forced to clear immigration (e.g., a misconnect): Matt (NZ) gets a visa on arrival. Harald (DE) would need a visa, so consider a free eVisitor 651 as a backup (immi.homeaffairs.gov.au).",
+    "Check the bags are tagged through to SIN at AKL check-in."
+   ],
    "options": []
   },
   {
@@ -126,7 +137,13 @@ window.SG_TRIP_2026 = {
    "dates": "Fri 13 \u2013 Mon 30 Nov 2026 \u00b7 17 nights \u00b7 depart 13:40 Mon 30 Nov (FJ362)",
    "note": "SFF at Singapore EXPO 18\u201320 Nov \u00b7 hotel not booked",
    "title": "Singapore (13\u201330 Nov, 17 nights)",
-   "notesList": [],
+   "notesList": [
+    "Dorsett Changi City (next to Expo MRT) shows UNAVAILABLE on Booking.com for 13-30 Nov, and Park Avenue Changi/Capri Changi City weren't returned. Expo-adjacent stock looks tight during SFF.",
+    "Top pick: stay in the city (Bugis or Lavender). There's lots to do on 13-17 and 21-30 Nov, and Expo is a direct train ride for the 3 SFF days. Value pick: Hotel Boss twin NZ$3,613; comfort pick: ibis Bencoolen twin NZ$4,504.",
+    "Optional split: city for most nights plus 17-20 Nov near Expo. Probably not worth it given the prices and the ~30 min trip.",
+    "All totals are Booking.com 13-30 Nov, 2 adults, 1 room, taxes and charges included, cheapest room shown. Check the cancellation policy for each.",
+    "Hotel check-in usually needs a guest aged 18+ (some 21+). Harald checks in as the main guest."
+   ],
    "options": [
     {
      "name": "ibis Singapore on Bencoolen (Bugis/City Hall)",
@@ -241,7 +258,15 @@ window.SG_TRIP_2026 = {
    "dates": "Tue 1 Dec 2026 \u00b7 layover 04:30 \u2013 20:00",
    "note": "~15.5 h layover, must enter Fiji",
    "title": "Nadi layover (Tue 1 Dec 04:30\u201320:00)",
-   "notesList": [],
+   "notesList": [
+    "Entry: NZ and German citizens are visa-exempt for Fiji (immigration.gov.fj); you get a visitor permit on arrival. Travel documents need 6+ months' validity; carry the onward FJ413 ticket.",
+    "Layover is ~15.5 h, which is over the 10-hour limit, so you MUST clear immigration and customs and enter Fiji (Fiji Airports / Tourism Fiji). You cannot stay in the transit lounge.",
+    "Bags: SIN-NAN-AKL is one ticket, but travellers report that Fiji makes you collect checked bags on long connections. Expect to collect them and re-check for FJ413. Ask at SIN check-in. Left-luggage room in the arrivals hall, 05:00-22:00, cash FJD, per item.",
+    "Paper Fiji arrival card is handed out on the plane; bring a pen. Declare food (biosecurity).",
+    "Departure tax is normally included in the ticket. The Airport Departure Tax Act exempts transit passengers leaving within 48-96 h.",
+    "Top pick: book the night of 30 Nov at Fiji Gateway (or Tokatoka) so the room is ready when you land at 04:30 (FJ362). Sleep and swim, ask for a late checkout, then walk back ~17:00 for FJ413 check-in. Budget pick: Airport Nest day room. Skip the lounge unless you want a shower and dinner in the last 2-3 h (~NZ$228 for 2).",
+    "Taxi flagfall FJD5; Uber doesn't operate. Cards often carry a 3% surcharge, so carry some FJD cash. Fiji uses type I plugs (same as NZ)."
+   ],
    "options": [
     {
      "name": "Fiji Gateway Hotel (ex-Raffles), opposite the airport",
@@ -318,7 +343,11 @@ window.SG_TRIP_2026 = {
    "dates": "Wed 2 Dec 2026 \u00b7 land 00:15 (FJ413)",
    "note": "Book the night of 1 Dec \u00b7 hotel not booked",
    "title": "Auckland arrival 00:15 Wed 2 Dec (FJ413)",
-   "notesList": [],
+   "notesList": [
+    "BOOK THE NIGHT OF TUE 1 DEC (check-in 1 Dec) so you can check in at ~01:00 on 2 Dec. Tell the hotel you'll arrive late.",
+    "Fill in the NZ Traveller Declaration (free, travellerdeclaration.govt.nz) from 24 h before the journey starts, i.e. from about 13:40 on 30 Nov SG time or at Nadi. Check whether Harald (German citizen) has NZ residence or needs an NZeTA.",
+    "Top pick: ibis budget (cheap, near domestic) or Novotel (easiest at 1am)."
+   ],
    "options": [
     {
      "name": "ibis budget Auckland Airport (night of 1 Dec)",
@@ -383,7 +412,11 @@ window.SG_TRIP_2026 = {
    "dates": "Home: Sat 5 Dec 12:50 as booked (JQ297) \u00b7 or Wed 2 Dec ~10:05 if moved",
    "note": "Recommended: move JQ297 to 2 Dec",
    "title": "Auckland \u2192 Queenstown (2 Dec)",
-   "notesList": [],
+   "notesList": [
+    "For reference, JQ297 5 Dec 11:00 is currently NZ$211 for 2.",
+    "Move vs stay: moving costs \u2248NZ$370-640 including the airport night, versus \u2248NZ$700-1,300+ to stay in Auckland until 5 Dec. Move it. See akl_move_vs_stay.md.",
+    "Top pick: change JQ297 to the 08:15 on 2 Dec via Travala before ~4 Nov."
+   ],
    "options": [
     {
      "name": "Change JQ297 (5 Dec) \u2192 Jetstar 08:15 2 Dec",
@@ -481,7 +514,7 @@ window.SG_TRIP_2026 = {
     "city": "Auckland",
     "localLabel": "12:35 Thu 12 Nov (domestic terminal)"
    },
-   "detail": "",
+   "detail": "Lands at the DOMESTIC terminal. 20kg checked + Jetstar carry-on weight limit (weighed strictly).",
    "departAt": "2026-11-12T10:45:00+13:00",
    "arriveAt": "2026-11-12T12:35:00+13:00",
    "who": "us",
@@ -505,7 +538,7 @@ window.SG_TRIP_2026 = {
     "city": "Melbourne",
     "localLabel": "11:50 Fri 13 Nov"
    },
-   "detail": "",
+   "detail": "Same booking, international to international, so Jetstar transfers checked bags (jetstar.com baggage-transfers page). Connection is 80 min.",
    "departAt": "2026-11-13T09:40:00+13:00",
    "arriveAt": "2026-11-13T11:50:00+11:00",
    "who": "us",
@@ -529,7 +562,7 @@ window.SG_TRIP_2026 = {
     "city": "Singapore",
     "localLabel": "18:00 Fri 13 Nov"
    },
-   "detail": "",
+   "detail": "Same booking, international to international, so Jetstar transfers checked bags (jetstar.com baggage-transfers page). Connection is 80 min.",
    "departAt": "2026-11-13T13:10:00+11:00",
    "arriveAt": "2026-11-13T18:00:00+08:00",
    "who": "us",
@@ -553,7 +586,7 @@ window.SG_TRIP_2026 = {
     "city": "Nadi",
     "localLabel": "04:30 Tue 1 Dec"
    },
-   "detail": "",
+   "detail": "Booked with Fiji Airways. Bags 20kg checked + 5kg cabin each. FJ362 + FJ413 are one ticket; expect to collect bags at Nadi and re-check for FJ413 (ask at SIN check-in).",
    "departAt": "2026-11-30T13:40:00+08:00",
    "arriveAt": "2026-12-01T04:30:00+12:00",
    "who": "us",
@@ -602,33 +635,11 @@ window.SG_TRIP_2026 = {
     "localLabel": "12:50 Sat 5 Dec"
    },
    "detail": "Existing home leg, booked. JQ297 5 Dec 11:00 is currently NZ$211 for 2 (reference fare).",
-   "warning": "Option: move this flight to 2 Dec.",
+   "warning": "Recommended: change to Jetstar 08:15 Wed 2 Dec by ~4 Nov (NZ$75 pp fee). See options.",
    "departAt": "2026-12-05T11:00:00+13:00",
    "arriveAt": "2026-12-05T12:50:00+13:00",
    "who": "us",
    "link": "https://www.google.com/travel/flights?q=Flights%20from%20Auckland%20to%20Queenstown%20on%205%20December%202026"
-  },
-  {
-   "id": "sg-opt-jq-0815",
-   "type": "flight",
-   "status": "option",
-   "fromStopId": "akl-2dec",
-   "toStopId": "zqn-home",
-   "airline": "Jetstar",
-   "flightNumber": "08:15 (change JQ297)",
-   "departure": {
-    "airport": "AKL",
-    "city": "Auckland",
-    "localLabel": "08:15 Wed 2 Dec"
-   },
-   "arrival": {
-    "airport": "ZQN",
-    "city": "Queenstown",
-    "localLabel": "10:05 Wed 2 Dec"
-   },
-   "priceLabel": "Change fee NZD 150 for 2 (by ~4 Nov) + fare difference (est. NZ$0-50)",
-   "detail": "",
-   "link": "https://www.google.com/travel/flights?q=Flights%20from%20Auckland%20to%20Queenstown%20on%202%20December%202026"
   },
   {
    "id": "sg-layover-mel",
@@ -659,7 +670,7 @@ window.SG_TRIP_2026 = {
    "stopId": "sin",
    "title": "Singapore FinTech Festival (SFF)",
    "confirmation": "Singapore EXPO",
-   "detail": "",
+   "detail": "SFF 18-20 Nov: minimum age 16, so Matt (17) is OK. Bring the confirmation QR. Badge pre-collection at Sands Expo L5, 15-17 Nov, or on site at Expo. Trade-visitor hours 10:00-18:00.",
    "link": "https://www.fintechfestival.sg/"
   },
   {
@@ -684,7 +695,7 @@ window.SG_TRIP_2026 = {
     "city": "Melbourne",
     "localLabel": "11:05 Mon 16 Nov"
    },
-   "detail": "",
+   "detail": "Sam. Christchurch to Melbourne.",
    "link": "https://www.google.com/travel/flights?q=Flights%20from%20Christchurch%20to%20Melbourne%20on%2016%20November%202026"
   },
   {
@@ -709,7 +720,7 @@ window.SG_TRIP_2026 = {
     "city": "Singapore",
     "localLabel": "18:00 Mon 16 Nov"
    },
-   "detail": "",
+   "detail": "Sam. Melbourne to Singapore.",
    "link": "https://www.google.com/travel/flights?q=Flights%20from%20Melbourne%20to%20Singapore%20on%2016%20November%202026"
   },
   {
@@ -734,7 +745,7 @@ window.SG_TRIP_2026 = {
     "city": "Melbourne",
     "localLabel": "07:25 Mon 23 Nov"
    },
-   "detail": "",
+   "detail": "Sam. Singapore to Melbourne.",
    "link": "https://www.google.com/travel/flights?q=Flights%20from%20Singapore%20to%20Melbourne%20on%2022%20November%202026"
   },
   {
@@ -759,7 +770,7 @@ window.SG_TRIP_2026 = {
     "city": "Christchurch",
     "localLabel": "17:20 Mon 23 Nov"
    },
-   "detail": "",
+   "detail": "Sam. Melbourne to Christchurch.",
    "link": "https://www.google.com/travel/flights?q=Flights%20from%20Melbourne%20to%20Christchurch%20on%2023%20November%202026"
   }
  ],
@@ -807,7 +818,31 @@ window.SG_TRIP_2026 = {
   ]
  },
  "toThink": {
-  "items": [],
-  "unverified": []
+  "items": [
+   "SG Arrival Card: free, ICA only, submit within 3 days before arrival (10-13 Nov for the 13 Nov arrival): https://eservices.ica.gov.sg/sgarrivalcard/. Ignore paid look-alike sites.",
+   "Singapore entry: NZ and German citizens visa-free for short visits; 17 nights is fine. Travel documents need 6+ months' validity.",
+   "Australia (MEL) transit: TWOV is fine for both if you stay airside (same booking, so bags go through). Backup: free eVisitor 651 for Harald.",
+   "Fiji: visa-exempt; you must enter Fiji (layover over 10 h); paper arrival card; expect to collect and re-check bags.",
+   "NZ Traveller Declaration before landing AKL 2 Dec (free): https://www.travellerdeclaration.govt.nz/. Check Harald's NZ status (resident visa vs NZeTA).",
+   "Under-18 travelling with a parent: no consent letter is normally needed when travelling with your own parent (same surname). Bring the existing consent letter in case you ever fly separately. Unverified per country.",
+   "SFF 18-20 Nov: minimum age 16, so Matt (17) is OK. Bring the confirmation QR. Badge pre-collection at Sands Expo L5, 15-17 Nov, or on site at Expo. Trade-visitor hours 10:00-18:00.",
+   "Travel insurance: 1Cover Comprehensive NZ$171.20 (12 Nov-2 Dec) NOT yet bought. Buy before 12 Nov so pre-trip cancellation is covered.",
+   "Jetstar carry-on is weighed strictly (combined limit). Fiji Airways allowance is 20kg checked + 5kg cabin each per the booking. Pack to the smaller cabin limit.",
+   "Power: Singapore type G (UK 3-pin, 230V), so you need an adapter. Fiji type I (same as NZ).",
+   "Money: SGD (cards and contactless everywhere; MRT accepts contactless Visa/Mastercard via SimplyGo). FJD cash for Nadi taxis and left luggage; card surcharge ~3%.",
+   "SIM/eSIM: buy a tourist eSIM (e.g., Singtel/StarHub/M1, or an eSIM app) before flying. Prices not checked.",
+   "Book the right AKL night: 1 Dec, not 2 Dec, for the 00:15 arrival.",
+   "Change JQ297 by ~4 Nov to get the lower NZ$75 Jetstar fee (Jetstar's deadline is 1 Dec at the latest).",
+   "Singapore is hot and humid with rain likely in Nov; bring light clothes and an umbrella. Strict rules: no chewing gum import, no vaping (heavy fines), e-cigarettes illegal."
+  ],
+  "unverified": [
+   "Original JQ297 fare paid (needed for the exact fare difference); whether Travala adds a change fee or uses the GDS (NZ$100 pp) rate.",
+   "Whether hotel shuttles (Sudima, Holiday Inn, JetPark) are free and run after midnight.",
+   "Twin-bed availability at the exact rate shown.",
+   "Fiji Gateway day-use price, late-checkout fee, and FJ413 check-in opening time at Nadi.",
+   "Whether FJ bags are short-checked to Nadi (ask at SIN check-in).",
+   "SG train times to Expo are estimates.",
+   "Jetstar 2 Dec checked-bag price for a new ticket."
+  ]
  }
 };
